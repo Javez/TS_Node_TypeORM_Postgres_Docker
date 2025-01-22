@@ -15,6 +15,6 @@ validateEnv();
         console.log('Error while connecting to the database', error);
         return error;
     }
-    const app = new App([new PostController()]);
+    const app = new App([]);
     app.listen();
 })();
