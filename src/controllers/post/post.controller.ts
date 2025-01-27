@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { getRepository } from 'typeorm';
+import AppSource from '../../config/orm.config';
 import PostNotFoundException from '../../exeptions/post/postNotFound.exeption';
 import Controller from '../controller.interface';
 import validationMiddleware from '../../middleware/validation.middleware';
@@ -9,7 +9,7 @@ import Post from '../../model/post/post.model';
 class PostController implements Controller {
     public path = '/posts';
     public router = express.Router();
-    private postRepository = getRepository(Post);
+    private postRepository = AppSource.getRepository(Post);
 
     constructor() {
         this.initializeRoutes();
