@@ -6,10 +6,10 @@ class Post {
     public id?: number;
 
     @Column()
-    public title: string | undefined;
+    public title: string;
 
     @Column()
-    public content: string | undefined;
+    public content: string;
 }
 
 export default Post;
