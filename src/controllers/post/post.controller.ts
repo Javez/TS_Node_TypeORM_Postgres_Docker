@@ -1,10 +1,10 @@
 import * as express from 'express';
-import AppSource from '../../config/orm.config';
 import PostNotFoundException from '../../exeptions/post/postNotFound.exeption';
 import Controller from '../controller.interface';
 import validationMiddleware from '../../middleware/validation.middleware';
 import CreatePostDto from '../../dto/post.dto';
 import Post from '../../model/post/post.model';
+import AppSource from '../../config/orm.config';
 
 class PostController implements Controller {
     public path = '/posts';

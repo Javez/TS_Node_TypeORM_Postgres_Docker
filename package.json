@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "npx tsx watch src/server.ts",
+    "dev": "set NODE_ENV=dev && npx tsx watch src/server.ts",
     "prod": "tsc && node dist/server.js",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "test": "jest"

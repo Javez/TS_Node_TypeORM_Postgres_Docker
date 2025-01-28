@@ -1,19 +1,16 @@
-import { cleanEnv, str, num, bool } from 'envalid';
+import { cleanEnv, str, num, email } from 'envalid';
 
 const validateEnv = () => {
-    if (process.env.NODE_ENV === 'local') {
-        cleanEnv(process.env, {
-            PORT: num(),
-        });
-    } else if (process.env.NODE_ENV === 'dev') {
-        cleanEnv(process.env, {
-            POSTGRES_PORT: num(),
-            POSTGRES_USER: str(),
-            POSTGRES_PASSWORD: str(),
-            POSTGRES_DB: str(),
-            PORT: num(),
-        });
-    }
+    cleanEnv(process.env, {
+        POSTGRES_HOST: str(),
+        POSTGRES_USER: str(),
+        POSTGRES_PORT: num(),
+        POSTGRES_PASSWORD: str(),
+        POSTGRES_DB: str(),
+        PGADMIN_DEFAULT_EMAIL: email(),
+        PGADMIN_DEFAULT_PASSWORD: str(),
+        PORT: num(),
+    });
 };
 
 export default validateEnv;

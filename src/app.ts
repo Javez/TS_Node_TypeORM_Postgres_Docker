@@ -2,13 +2,17 @@ import * as bodyParser from 'body-parser';
 import express from 'express';
 import Controller from './controllers/controller.interface';
 import errorMiddleware from './middleware/error.middleware';
+import { DataSource } from 'typeorm';
 
 class App {
     public app: express.Application;
+    public datasource: DataSource;
+    public port: number;
 
-    constructor(controllers: Controller[]) {
+    constructor(controllers: Controller[], datasource: DataSource, port: number) {
         this.app = express();
-
+        this.datasource = datasource;
+        this.port = port;
         this.connectToTheDatabase();
         this.initializeMiddlewares();
         this.initializeControllers(controllers);
@@ -25,6 +29,10 @@ class App {
         return this.app;
     }
 
+    public getDataSource() {
+        return this.datasource;
+    }
+
     private initializeMiddlewares() {
         this.app.use(bodyParser.json());
     }
@@ -39,9 +47,14 @@ class App {
         });
     }
 
-    private connectToTheDatabase() {
-       
-    }
+    private connectToTheDatabase = async () => {
+        try {
+            await this.datasource.initialize();
+        } catch (error) {
+            console.log('Error while connecting to the database', error);
+            return error;
+        }
+    };
 }
 
 export default App;
