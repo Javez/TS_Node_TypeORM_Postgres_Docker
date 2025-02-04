@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import Address from '../address/address.model';
 
 @Entity()
 class User {
@@ -13,6 +14,10 @@ class User {
 
     @Column()
     public password: string;
+
+    @OneToOne(() => Address)
+    @JoinColumn()
+    public address?: Address;
 }
 
 export default User;
