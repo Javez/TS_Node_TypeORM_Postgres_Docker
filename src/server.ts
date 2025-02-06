@@ -1,11 +1,17 @@
 import 'reflect-metadata';
 import PostController from './controllers/post/post.controller';
-import AppSource from './config/orm.config';
+import Database from './config/orm.config';
 import App from './app';
+import { AddressController } from './controllers/address/address.controller';
+import validateEnv from './utils/validateEnv';
 
-const app = new App(
-    [new PostController()],
-    AppSource,
-    Number(process.env.PORT)
-);
-app.listen();
+validateEnv.validateAppEnv();
+
+(async () => {
+    const app = new App(
+        [new PostController(), new AddressController()],
+        Database.getInstance(),
+        Number(process.env.PORT)
+    );
+    app.listen();
+})();

@@ -4,12 +4,13 @@ import Controller from '../controller.interface';
 import validationMiddleware from '../../middleware/validation.middleware';
 import CreatePostDto from '../../dto/post.dto';
 import Post from '../../model/post/post.model';
-import AppSource from '../../config/orm.config';
+import Database from '../../config/orm.config';
+import { Repository } from 'typeorm';
 
 class PostController implements Controller {
-    public path = '/posts';
-    public router = express.Router();
-    private postRepository = AppSource.getRepository(Post);
+    public path: string = '/posts';
+    public router: express.Router = express.Router();
+    private postRepository: Repository<Post> = Database.getInstance().getRepository(Post);
 
     constructor() {
         this.initializeRoutes();

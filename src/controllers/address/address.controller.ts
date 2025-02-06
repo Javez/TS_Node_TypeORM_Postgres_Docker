@@ -1,13 +1,13 @@
 import { Request, Response, Router } from 'express';
 import Controller from '../controller.interface';
-import AppSource from '../../config/orm.config';
+import Database from '../../config/orm.config';
 import Address from '../../model/address/address.model';
+import { Repository } from 'typeorm';
 
 export class AddressController implements Controller {
     public path: string = '/address';
     public router: Router = Router();
-    private addressRepository = AppSource.getRepository(Address);
-
+    private addressRepository: Repository<Address> = Database.getInstance().getRepository(Address);
     constructor() {
         this.initializeRoutes();
     }
