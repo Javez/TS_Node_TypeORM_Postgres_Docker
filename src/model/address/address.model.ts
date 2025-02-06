@@ -6,13 +6,13 @@ class Address {
     @PrimaryGeneratedColumn()
     public id: string;
 
-    @Column()
+    @Column('text')
     public street: string;
 
-    @Column()
+    @Column('text')
     public city: string;
 
-    @Column()
+    @Column('text')
     public country: string;
 
     @OneToOne(() => User, (user: User) => user.address)

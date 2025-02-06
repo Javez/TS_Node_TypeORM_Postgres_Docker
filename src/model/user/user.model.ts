@@ -6,18 +6,18 @@ class User {
     @PrimaryGeneratedColumn()
     public id?: string;
 
-    @Column()
+    @Column('text')
     public name: string;
 
-    @Column()
+    @Column('text')
     public email: string;
 
-    @Column()
+    @Column('text')
     public password: string;
 
     @OneToOne(() => Address, (address: Address) => address.user, {
         cascade: true,
-        eager: true
+        eager: true,
     })
     @JoinColumn()
     public address?: Address;

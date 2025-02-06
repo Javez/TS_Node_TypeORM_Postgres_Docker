@@ -3,6 +3,8 @@ import dotenv from 'dotenv';
 import { DataSource } from 'typeorm';
 import Post from '../model/post/post.model';
 import validateEnv from '../utils/validateEnv';
+import User from '../model/user/user.model';
+import Address from '../model/address/address.model';
 
 dotenv.config({
     path: `${path.resolve(__dirname, `../../${process.env.NODE_ENV.trim()}.env`).trim()}`,
@@ -19,7 +21,7 @@ const AppSource: DataSource = new DataSource({
     database: process.env.POSTGRES_DB,
     synchronize: true,
     logging: true,
-    entities: [Post],
+    entities: [Post, User, Address],
     subscribers: [],
     migrations: [],
 });
