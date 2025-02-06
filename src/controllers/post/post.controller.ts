@@ -1,8 +1,8 @@
 import * as express from 'express';
-import PostNotFoundException from '../../exeptions/post/postNotFound.exeption';
-import Controller from '../controller.interface';
+import PostNotFoundException from '../../exeptions/post/PostNotFound.exeption';
+import Controller from '../../interfaces/controller.interface';
 import validationMiddleware from '../../middleware/validation.middleware';
-import CreatePostDto from '../../dto/post.dto';
+import CreatePostDto from '../../dto/post/post.dto';
 import Post from '../../model/post/post.model';
 import Database from '../../config/orm.config';
 import { Repository } from 'typeorm';
@@ -10,7 +10,8 @@ import { Repository } from 'typeorm';
 class PostController implements Controller {
     public path: string = '/posts';
     public router: express.Router = express.Router();
-    private postRepository: Repository<Post> = Database.getInstance().getRepository(Post);
+    private postRepository: Repository<Post> =
+        Database.getInstance().getRepository(Post);
 
     constructor() {
         this.initializeRoutes();

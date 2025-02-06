@@ -8,9 +8,15 @@ import validateEnv from './utils/validateEnv';
 validateEnv.validateAppEnv();
 
 (async () => {
+    try {
+        const datasource = Database.getInstance();
+        await datasource.initialize();
+    } catch (error) {
+        console.log('Error while connecting to the database', error);
+        return error;
+    }
     const app = new App(
         [new PostController(), new AddressController()],
-        Database.getInstance(),
         Number(process.env.PORT)
     );
     app.listen();

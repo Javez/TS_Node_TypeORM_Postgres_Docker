@@ -1,10 +1,11 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import Address from '../address/address.model';
+import Post from '../post/post.model';
 
 @Entity()
 class User {
     @PrimaryGeneratedColumn()
-    public id?: string;
+    public id: string;
 
     @Column('text')
     public name: string;
@@ -21,6 +22,9 @@ class User {
     })
     @JoinColumn()
     public address?: Address;
+
+    @OneToMany(() => Post, (post: Post) => post.author)
+    public posts?: Post[];
 }
 
 export default User;
