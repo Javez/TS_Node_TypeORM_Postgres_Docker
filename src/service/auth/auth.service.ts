@@ -1,7 +1,7 @@
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
-import User from '../../model/user/user.model';
-import CreateUserDTO from '../../dto/user/user.dto';
+import User from '../../model/user.model';
+import CreateUserDTO from '../../dto/user.dto';
 import Database from '../../config/orm.config';
 import UserWithThatEmailAlreadyExistsException from '../../exeptions/auth/UserWithThisEmailAlreadyExistsExeption';
 import TokenData from '../../interfaces/tokenData.interface';
@@ -11,7 +11,11 @@ class AuthService {
     private userRepository = Database.getInstance().getRepository(User);
 
     public async register(userData: CreateUserDTO) {
-        if (await this.userRepository.findOne({ where: { email: userData.email }})) {
+        if (
+            await this.userRepository.findOne({
+                where: { email: userData.email },
+            })
+        ) {
             throw new UserWithThatEmailAlreadyExistsException(userData.email);
         }
         const hashedPassword = await bcrypt.hash(userData.password, 10);

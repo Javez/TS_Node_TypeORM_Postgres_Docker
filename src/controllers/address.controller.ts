@@ -1,10 +1,10 @@
 import { Request, Response, Router } from 'express';
-import Controller from '../../interfaces/controller.interface';
-import Database from '../../config/orm.config';
-import Address from '../../model/address/address.model';
+import Controller from '../interfaces/controller.interface';
+import Database from '../config/orm.config';
+import Address from '../model/address.model';
 import { Repository } from 'typeorm';
 
-export class AddressController implements Controller {
+class AddressController implements Controller {
     public path: string = '/address';
     public router: Router = Router();
     private addressRepository: Repository<Address> =
@@ -22,3 +22,5 @@ export class AddressController implements Controller {
         res.send(addresses);
     }
 }
+
+export default AddressController;

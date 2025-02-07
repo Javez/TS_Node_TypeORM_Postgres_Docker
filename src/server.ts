@@ -1,9 +1,10 @@
 import 'reflect-metadata';
-import PostController from './controllers/post/post.controller';
+import validateEnv from './utils/validateEnv';
 import Database from './config/orm.config';
 import App from './app';
-import { AddressController } from './controllers/address/address.controller';
-import validateEnv from './utils/validateEnv';
+import PostController from './controllers/post.controller';
+import AddressController from './controllers/address.controller';
+import AuthController from './controllers/auth.controller';
 
 validateEnv.validateAppEnv();
 
@@ -16,7 +17,7 @@ validateEnv.validateAppEnv();
         return error;
     }
     const app = new App(
-        [new PostController(), new AddressController()],
+        [new PostController(), new AddressController(), new AuthController()],
         Number(process.env.PORT)
     );
     app.listen();

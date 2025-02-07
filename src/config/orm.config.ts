@@ -1,8 +1,8 @@
 import { DataSource } from 'typeorm';
-import Post from '../model/post/post.model';
+import Post from '../model/post.model';
 import validateEnv from '../utils/validateEnv';
-import User from '../model/user/user.model';
-import Address from '../model/address/address.model';
+import User from '../model/user.model';
+import Address from '../model/address.model';
 
 validateEnv.validateDatabaseEnv();
 
