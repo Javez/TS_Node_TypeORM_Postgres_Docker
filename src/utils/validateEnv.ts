@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import { cleanEnv, str, num, email } from 'envalid';
 
 dotenv.config({
-    path: `${path.resolve(__dirname, `../../${process.env.NODE_ENV.trim()}.env`).trim()}`,
+    path: `${path.resolve(__dirname, `../../${String(process.env.NODE_ENV).trim()}.env`)}`,
 });
 
 const validateAppEnv = () => {
