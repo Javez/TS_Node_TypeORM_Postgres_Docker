@@ -8,6 +8,7 @@ dotenv.config({
 
 const validateAppEnv = () => {
     cleanEnv(process.env, {
+        JWT_SECRET: str(),
         PORT: num(),
     });
 };

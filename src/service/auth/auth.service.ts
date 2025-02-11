@@ -6,6 +6,8 @@ import Database from '../../config/orm.config';
 import UserWithThatEmailAlreadyExistsException from '../../exeptions/auth/UserWithThisEmailAlreadyExistsExeption';
 import TokenData from '../../interfaces/tokenData.interface';
 import DataStoredInToken from '../../interfaces/dataStoredInToken.interface';
+import LogInDto from '../../dto/login.dto';
+import WrongCredentialsException from '../../exeptions/auth/WrongCredentialsException';
 
 class AuthService {
     private userRepository = Database.getInstance().getRepository(User);
@@ -32,6 +34,31 @@ class AuthService {
             user,
         };
     }
+
+    public async loginIn(logInData: LogInDto) {
+        const user = await this.userRepository.findOne({
+            where: {
+                email: logInData.email,
+            },
+        });
+        if (user) {
+            const isPasswordMatching = await bcrypt.compare(
+                logInData.password,
+                user.password
+            );
+            if (isPasswordMatching) {
+                user.password = undefined;
+                const tokenData = this.createToken(user);
+                const cookie = this.createCookie(tokenData);
+                return { cookie, user };
+            } else {
+                throw new WrongCredentialsException();
+            }
+        } else {
+            throw new WrongCredentialsException();
+        }
+    }
+
     public createCookie(tokenData: TokenData) {
         return `Authorization=${tokenData.token}; HttpOnly; Max-Age=${tokenData.expiresIn}`;
     }
