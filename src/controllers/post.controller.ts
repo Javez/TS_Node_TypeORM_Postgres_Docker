@@ -1,5 +1,5 @@
 import * as express from 'express';
-import PostNotFoundException from '../exeptions/post/postNotFound.exeption';
+import PostNotFoundException from '../exeptions/post/PostNotFound.exeption';
 import Controller from '../interfaces/controller.interface';
 import validationMiddleware from '../middleware/validation.middleware';
 import CreatePostDto from '../dto/post.dto';
