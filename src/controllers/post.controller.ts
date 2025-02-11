@@ -6,6 +6,8 @@ import CreatePostDto from '../dto/post.dto';
 import Post from '../model/post.model';
 import Database from '../config/orm.config';
 import { Repository } from 'typeorm';
+import RequestWithUser from '../interfaces/requestWithUser.interface';
+import authMiddleware from '../middleware/auth.middleware';
 
 class PostController implements Controller {
     public path: string = '/posts';
@@ -18,28 +20,34 @@ class PostController implements Controller {
     }
 
     private initializeRoutes() {
-        this.router.post(
-            this.path,
-            validationMiddleware(CreatePostDto),
-            this.createPost
-        );
         this.router.get(this.path, this.getAllPosts);
         this.router.get(`${this.path}/:id`, this.getPostById);
-        this.router.patch(
-            `${this.path}/:id`,
-            validationMiddleware(CreatePostDto, true),
-            this.modifyPost
-        );
-        this.router.delete(`${this.path}/:id`, this.deletePost);
+        this.router
+            .all(`${this.path}/*`, authMiddleware)
+            .post(
+                `${this.path}/create`,
+                validationMiddleware(CreatePostDto),
+                this.createPost
+            )
+            .patch(
+                `${this.path}/:id`,
+                validationMiddleware(CreatePostDto, true),
+                this.modifyPost
+            )
+            .delete(`${this.path}/:id`, this.deletePost);
     }
 
     private createPost = async (
-        request: express.Request,
+        request: RequestWithUser,
         response: express.Response
     ) => {
         const postData: CreatePostDto = request.body;
-        const newPost = this.postRepository.create(postData);
+        const newPost = this.postRepository.create({
+            ...postData,
+            author: request.user,
+        });
         await this.postRepository.save(newPost);
+        newPost.author = undefined;
         response.send(newPost);
     };
 
