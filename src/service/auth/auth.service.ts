@@ -63,7 +63,7 @@ class AuthService {
         return `Authorization=${tokenData.token}; HttpOnly; Max-Age=${tokenData.expiresIn}`;
     }
     public createToken(user: User): TokenData {
-        const expiresIn = 60 * 60 * 24; //a day
+        const expiresIn = 60 * 60; 
         const secret = process.env.JWT_SECRET;
         const dataStoredInToken: DataStoredInToken = {
             id: user.id,
