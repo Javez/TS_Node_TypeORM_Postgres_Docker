@@ -20,11 +20,11 @@ class Database {
                 username: process.env.POSTGRES_USER,
                 password: process.env.POSTGRES_PASSWORD,
                 database: process.env.POSTGRES_DB,
-                synchronize: true,
+                synchronize: process.env.NODE_ENV.trim() !== 'prod' ? true : false, //disable on prod
                 logging: false,
-                entities: [Post, User, Address],
+                entities: [__dirname + '/../**/*.model{.ts,.js}'],
+                migrations: [__dirname + '/src/migrations/*{.ts,.js}'],
                 subscribers: [],
-                migrations: [],
             });
         }
         return Database.instance;
