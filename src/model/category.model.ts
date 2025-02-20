@@ -5,7 +5,8 @@ import Post from './post.model';
 class Category {
     @PrimaryGeneratedColumn()
     id: number;
-    @Column()
+    
+    @Column('text')
     name: string;
 
     @ManyToMany(() => Post, (post: Post) => post.categories)

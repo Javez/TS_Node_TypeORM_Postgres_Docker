@@ -1,10 +1,4 @@
 import { DataSource } from 'typeorm';
-import Post from '../model/post.model';
-import validateEnv from '../utils/validateEnv';
-import User from '../model/user.model';
-import Address from '../model/address.model';
-
-validateEnv.validateDatabaseEnv();
 
 class Database {
     private static instance: DataSource;
@@ -20,7 +14,7 @@ class Database {
                 username: process.env.POSTGRES_USER,
                 password: process.env.POSTGRES_PASSWORD,
                 database: process.env.POSTGRES_DB,
-                synchronize: process.env.NODE_ENV.trim() !== 'prod' ? true : false, //disable on prod
+                synchronize: String(process.env.NODE_ENV).trim() !== 'prod' ? true : false, //disable on prod
                 logging: false,
                 entities: [__dirname + '/../**/*.model{.ts,.js}'],
                 migrations: [__dirname + '/src/migrations/*{.ts,.js}'],
@@ -31,4 +25,6 @@ class Database {
     }
 }
 
-export default Database;
+export default Database.getInstance();
+
+export { Database };
