@@ -103,6 +103,7 @@ npm install -D @types/bcrypt@^5.0.2 @types/cookie-parser@^1.4.8 @types/express@^
 | lint | tslint -p tsconfig.json -c tslint.json |
 | typeorm:cli | ts-node ./node_modules/typeorm/cli |
 | migration:create | cross-env NAME=$npm_config_name npm run typeorm:cli -- migration:create src/migrations/%npm_config_name% |
+| migration:run | npm run typeorm:cli -- migration:run -d src/config/orm.config |
 | test | jest |
 
 <!-- Migrations -->
