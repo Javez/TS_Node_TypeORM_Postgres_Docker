@@ -2,8 +2,12 @@ import path from 'path';
 import dotenv from 'dotenv';
 import { cleanEnv, str, num, email } from 'envalid';
 
+const envName = process.env.NODE_ENV;
+
+if (!envName) throw new Error('\nNo env file name provided\n');
+
 dotenv.config({
-    path: `${path.resolve(__dirname, `../../${String(process.env.NODE_ENV).trim()}.env`)}`,
+    path: `${path.resolve(__dirname, `../../${String(envName).trim()}.env`)}`,
 });
 
 const validateAppEnv = () => {

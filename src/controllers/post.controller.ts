@@ -4,7 +4,7 @@ import Controller from '../interfaces/controller.interface';
 import validationMiddleware from '../middleware/validation.middleware';
 import CreatePostDto from '../dto/post.dto';
 import Post from '../model/post.model';
-import Database from '../config/orm.config';
+import datasource from '../config/orm.config';
 import { Repository } from 'typeorm';
 import RequestWithUser from '../interfaces/requestWithUser.interface';
 import authMiddleware from '../middleware/auth.middleware';
@@ -12,8 +12,7 @@ import authMiddleware from '../middleware/auth.middleware';
 class PostController implements Controller {
     public path: string = '/posts';
     public router: express.Router = express.Router();
-    private postRepository: Repository<Post> =
-        Database.getInstance().getRepository(Post);
+    private postRepository: Repository<Post> = datasource.getRepository(Post);
 
     constructor() {
         this.initializeRoutes();
@@ -69,7 +68,8 @@ class PostController implements Controller {
     ) => {
         const id = request.params.id;
         const post = await this.postRepository.findOne({
-            where: { id: Number(id) }, relations: ['categories'],
+            where: { id: Number(id) },
+            relations: ['categories'],
         });
         if (post) {
             response.send(post);

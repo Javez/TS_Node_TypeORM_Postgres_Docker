@@ -8,7 +8,6 @@ import AuthController from './controllers/auth.controller';
 import CategoryController from './controllers/category.controller';
 
 validateEnv.validateAppEnv();
-validateEnv.validateDatabaseEnv();
 
 (async () => {
     try {

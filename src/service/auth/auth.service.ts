@@ -2,7 +2,7 @@ import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import User from '../../model/user.model';
 import CreateUserDTO from '../../dto/user.dto';
-import Database from '../../config/orm.config';
+import datasource from '../../config/orm.config';
 import UserWithThatEmailAlreadyExistsException from '../../exeptions/auth/UserWithThisEmailAlreadyExistsExeption';
 import TokenData from '../../interfaces/tokenData.interface';
 import DataStoredInToken from '../../interfaces/dataStoredInToken.interface';
@@ -10,7 +10,7 @@ import LogInDto from '../../dto/login.dto';
 import WrongCredentialsException from '../../exeptions/auth/WrongCredentialsException';
 
 class AuthService {
-    private userRepository = Database.getInstance().getRepository(User);
+    private userRepository = datasource.getRepository(User);
 
     public async register(userData: CreateUserDTO) {
         if (
@@ -63,7 +63,7 @@ class AuthService {
         return `Authorization=${tokenData.token}; HttpOnly; Max-Age=${tokenData.expiresIn}`;
     }
     public createToken(user: User): TokenData {
-        const expiresIn = 60 * 60; 
+        const expiresIn = 60 * 60;
         const secret = process.env.JWT_SECRET;
         const dataStoredInToken: DataStoredInToken = {
             id: user.id,

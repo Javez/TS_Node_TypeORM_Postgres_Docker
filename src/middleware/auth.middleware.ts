@@ -5,7 +5,7 @@ import WrongAuthenticationTokenException from '../exeptions/auth/WrongAuthentica
 import DataStoredInToken from '../interfaces/dataStoredInToken.interface';
 import RequestWithUser from '../interfaces/requestWithUser.interface';
 import User from '../model/user.model';
-import Database from '../config/orm.config';
+import datasource from '../config/orm.config';
 
 async function authMiddleware(
     request: RequestWithUser,
@@ -13,7 +13,7 @@ async function authMiddleware(
     next: NextFunction
 ) {
     const cookies = request.cookies;
-    const userRepository = Database.getInstance().getRepository(User);
+    const userRepository = datasource.getRepository(User);
     if (cookies && cookies.Authorization) {
         const secret = process.env.JWT_SECRET;
         try {
