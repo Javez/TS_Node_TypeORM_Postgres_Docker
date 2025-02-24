@@ -6,6 +6,7 @@ export class UserFullName1739979878887 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "user" RENAME "name" to "fullName"`);
     }
 
+
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`ALTER TABLE "user" RENAME "fullName" to "name"`);
     }
