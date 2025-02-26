@@ -39,7 +39,7 @@ export default [
       'no-unused-vars': 'error',
       'no-undef': 'error',
       'prefer-const': 'error',
-      'no-console': 'error',
+      'no-console': false,
     },
   },
   eslintConfigPrettier,
