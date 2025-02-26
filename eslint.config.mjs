@@ -8,7 +8,6 @@ import eslintConfigPrettier from 'eslint-config-prettier';
 /** @type {import('eslint').Linter.Config[]} */
 export default [
   {
-    files: ['**/*.{js,mjs,cjs,ts}'],
     ignores: [
       'dist',
       'node_modules',
@@ -17,12 +16,17 @@ export default [
       '*.d.ts',
       '.env',
       '.env.local',
-      '**/*.config.ts',
-      '**/*.setup.ts',
+      'jest.config.ts',
+      'jest.setup.ts',
     ],
+  },
+  {
+    files: ['**/*.{js,mjs,cjs,ts}'],
+  },
+  {
     languageOptions: {
       sourceType: 'script',
-      globals: { ...globals.node, ...globals.browser },
+      globals: { ...globals.node },
       parser: tsParser,
     },
   },
@@ -39,7 +43,7 @@ export default [
       'no-unused-vars': 'error',
       'no-undef': 'error',
       'prefer-const': 'error',
-      'no-console': false,
+      'no-console': "off",
     },
   },
   eslintConfigPrettier,
