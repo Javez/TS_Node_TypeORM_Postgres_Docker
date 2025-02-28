@@ -11,6 +11,7 @@ export default [
     ignores: [
       'dist',
       'node_modules',
+      '__tests__',
       'coverage',
       '*.log',
       '*.d.ts',

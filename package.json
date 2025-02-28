@@ -15,7 +15,7 @@
     "lint:fix": "eslint . --fix",
     "lint:check": "eslint . --max-warnings=0",
     "lint:debug": "eslint . --debug",
-    "test": "jest"
+    "test": "npx jest"
   },
   "keywords": [],
   "author": "",
