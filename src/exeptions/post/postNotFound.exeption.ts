@@ -2,7 +2,7 @@ import HttpException from '../http.exeption';
 
 class PostNotFoundException extends HttpException {
     constructor(id: string) {
-        super(404, 'Post not found');
+        super(404, `Post not found ${id}`);
     }
 }
 

@@ -44,6 +44,7 @@ export default [
       'no-undef': 'error',
       'prefer-const': 'error',
       'no-console': "off",
+      'no-redeclare': 'off'
     },
   },
   eslintConfigPrettier,

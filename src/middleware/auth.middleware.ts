@@ -30,7 +30,7 @@ async function authMiddleware(
                 next(new WrongAuthenticationTokenException());
             }
         } catch (error) {
-            next(new WrongAuthenticationTokenException());
+            next(new Error(error.message));
         }
     } else {
         next(new AuthenticationTokenMissingException());
